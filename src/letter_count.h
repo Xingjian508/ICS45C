@@ -21,7 +21,8 @@ char index_to_char(int i) {
 void count(string s, int counts[]) {
     for (auto &ch : s) {
         int index = char_to_index(ch);
-        counts[index] = counts[index]+1;
+        if (0 <= index && index < 26)
+            counts[index] = counts[index]+1;
     }
 }
 

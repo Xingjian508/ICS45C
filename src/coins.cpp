@@ -94,6 +94,11 @@ Coins ask_for_coins(std::istream& in, std::ostream& out) {
 }
 
 
+bool Coins::has_exact_change_for_coins(Coins const& coins) const {
+    return (quarters >= coins.quarters && dimes >= coins.dimes && nickels >= coins.nickels && pennies >= coins.pennies);
+}
+
+
 void coins_menu(std::istream& in, std::ostream& out) {
     Coins bank(0, 0, 0, 0);
     bool error = false;

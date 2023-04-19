@@ -39,7 +39,7 @@ Coins coins_required_for_cents(int amount_in_cents); // D.
 void print_cents(int cents, std::ostream& out); // D.
 
 
-Coins ask_for_coins(std::istream& in, std::ostream& out);
+Coins ask_for_coins(std::istream& in, std::ostream& out); // D.
 
 
 void coins_menu(std::istream& in, std::ostream& out); // D.

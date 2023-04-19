@@ -117,7 +117,7 @@ void coins_menu(std::istream& in, std::ostream& out) {
         out << "4. Exit" << endl;
         out << endl;
 
-        out << "User input: ";
+        out << "User Input: ";
         int s;
         in >> s; // Loads the input into s.
         out << endl;
@@ -141,6 +141,8 @@ void coins_menu(std::istream& in, std::ostream& out) {
             cout << endl;
         }
         else {
+            Coins new_bank(0, 0, 0, 0);
+            bank = new_bank;
             break;
         }
 

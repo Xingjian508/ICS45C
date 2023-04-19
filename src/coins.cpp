@@ -78,6 +78,22 @@ void print_cents(int cents, std::ostream& out) {
 }
 
 
+Coins ask_for_coins(std::istream& in, std::ostream& out) {
+    int ans[4] = {0};
+    out << "Quarters? ";
+    in >> ans[0];
+    out << "Dimes? ";
+    in >> ans[1];
+    out << "Nickels? ";
+    in >> ans[2];
+    out << "Pennies? ";
+    in >> ans[3];
+
+    Coins money(ans[0], ans[1], ans[2], ans[3]);
+    return money;
+}
+
+
 void coins_menu(std::istream& in, std::ostream& out) {
     Coins bank(0, 0, 0, 0);
     bool error = false;
@@ -99,32 +115,12 @@ void coins_menu(std::istream& in, std::ostream& out) {
 
         if (s == 1) {
             // Deposit change.
-            int deposit[4] = {0};
-            out << "Quarters? ";
-            in >> deposit[0];
-            out << "Dimes? ";
-            in >> deposit[1];
-            out << "Nickels? ";
-            in >> deposit[2];
-            out << "Pennies? ";
-            in >> deposit[3];
-
-            Coins deposited_money(deposit[0], deposit[1], deposit[2], deposit[3]);
+            Coins deposited_money = ask_for_coins(in, out);
             bank.deposit_coins(deposited_money);
         }
         else if (s == 2) {
             // Extract change.
-            int extract[4] = {0};
-            out << "Quarters? ";
-            in >> extract[0];
-            out << "Dimes? ";
-            in >> extract[1];
-            out << "Nickels? ";
-            in >> extract[2];
-            out << "Pennies? ";
-            in >> extract[3];
-
-            Coins extracted_money(extract[0], extract[1], extract[2], extract[3]);
+            Coins extracted_money = ask_for_coins(in, out);
             Coins result = bank.extract_exact_change(extracted_money);
             if (result.total_value_in_cents() == 0 && extracted_money.total_value_in_cents() != 0) {
                 error = true;

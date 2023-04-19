@@ -82,16 +82,12 @@ Coins ask_for_coins(std::istream& in, std::ostream& out) {
     int ans[4] = {0};
     out << "Quarters? ";
     in >> ans[0];
-    out << endl;
     out << "Dimes? ";
     in >> ans[1];
-    out << endl;
     out << "Nickels? ";
     in >> ans[2];
-    out << endl;
     out << "Pennies? ";
     in >> ans[3];
-    out << endl;
 
     Coins money(ans[0], ans[1], ans[2], ans[3]);
     return money;
@@ -141,6 +137,7 @@ void coins_menu(std::istream& in, std::ostream& out) {
             cout << endl;
         }
         else {
+            cout << endl;
             break;
         }
 

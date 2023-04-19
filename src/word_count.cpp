@@ -14,8 +14,9 @@ void to_lowercase(std::string& str) {
 
 std::set<std::string> load_stopwords(std::istream& stopwords) {
     set<std::string> S;
-    string stopword = "";
+    std::string stopword = "";
     while (stopwords >> stopword) {
+        to_lowercase(stopword);
         S.insert(stopword);
     }
     return S;
@@ -24,10 +25,10 @@ std::set<std::string> load_stopwords(std::istream& stopwords) {
 
 std::map<std::string, int> count_words(std::istream& document, const std::set<std::string>& stopwords) {
     map<std::string, int> M;
-    string word = "";
+    std::string word = "";
     while (document >> word) {
         to_lowercase(word);
-        if (stopwords.find(word) != stopwords.end()) {
+        if (stopwords.find(word) == stopwords.end()) { // This indicates nonexistence.
             M[word]++;
         }
     }

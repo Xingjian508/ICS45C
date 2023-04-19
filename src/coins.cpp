@@ -137,7 +137,6 @@ void coins_menu(std::istream& in, std::ostream& out) {
             cout << endl;
         }
         else {
-            cout << endl;
             break;
         }
 

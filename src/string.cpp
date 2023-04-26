@@ -209,9 +209,9 @@ int String::indexOf(const String &s) {
 }
 
 String String::operator+(const String &s) {
-    String r;
+    String r("");
     int n = MAXLEN-String::strlen(r.buf);
-    if (n<0 || (n==0 && strlen(s.buf) != 0)) {
+    if (n<=0 || (n==0 && strlen(s.buf) != 0)) {
         cout << "ERROR" << endl;
     }
     else {
@@ -222,9 +222,9 @@ String String::operator+(const String &s) {
 }
 
 String& String::operator+=(const String &s) {
-    String r;
+    String r("");
     int n = MAXLEN-String::strlen(r.buf);
-    if (n<0 || (n==0 && strlen(s.buf) != 0)) {
+    if (n<=0 || (n==0 && strlen(s.buf) != 0)) {
         cout << "ERROR" << endl;
     }
     else {

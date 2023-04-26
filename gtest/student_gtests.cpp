@@ -54,17 +54,29 @@ TEST(StringFunction, strcmp) {
     EXPECT_EQ(String::strcmp("A", "BC"), ('A'-'B'));
     EXPECT_EQ(String::strcmp("", ""), 0);
     EXPECT_NE(String::strcmp("BA", "BCD"), ('A' - 'D'));
-    EXPECT_EQ(String::strcmp("BA", "BCD"), -(('C'-'A')));
+    EXPECT_EQ(String::strcmp("BA", "BCD"), -('C'-'A'));
 }
-/*
+
 TEST(StringFunction, strncmp) {
-    EXPECT_TRUE(false);
+    EXPECT_EQ(String::strncmp("something", "somethina", 5), 0);
+    EXPECT_EQ(String::strncmp("A", "BC", 0), 0);
+    EXPECT_EQ(String::strncmp("A", "BC", 100), ('A' - 'B'));
+    EXPECT_EQ(String::strncmp("", "", 10), 0);
+    EXPECT_EQ(String::strncmp("BA", "BCD", 1), 0);
+    EXPECT_EQ(String::strncmp("BA", "BCD", 2), -('C' - 'A'));
 }
 
 TEST(StringFunction, reverse_cpy) {
-    EXPECT_TRUE(false);
+    char a[100] = "CRAZYMOTHERFATHER";
+    char b[20];
+    String::reverse_cpy(b, a);
+    EXPECT_STREQ(b, "REHTAFREHTOMYZARC");
+    char c[5] = "some";
+    char d[6] = "thing";
+    String::reverse_cpy(d, c);
+    EXPECT_STREQ(d, "emos");
 }
-
+/*
 TEST(StringFunction, strchr) {
     EXPECT_TRUE(false);
 }

@@ -86,6 +86,9 @@ void String::reverse_cpy(char* dest, const char* src) {
 
 const char* String::strchr(const char* str, char c) {
     const char* ptr = nullptr;
+    if (c=='\0') {
+        return ptr;
+    }
     for (int i=0; str[i] != '\0'; ++i) {
         if (str[i] == c) {
             ptr = &str[i];

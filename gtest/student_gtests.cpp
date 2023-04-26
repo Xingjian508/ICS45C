@@ -94,6 +94,9 @@ TEST(StringFunction, strchr) {
     char str3[4] = "abc";
     const char* ptr5 = String::strchr(str3, '\0');
     EXPECT_EQ(nullptr, ptr5);
+    char haystack[4] = "AJF";
+    const char* ptr6 = String::strchr(haystack, '\0');
+    EXPECT_EQ(nullptr, ptr6);
 }
 
 TEST(StringFunction, strstr) {
@@ -125,5 +128,9 @@ TEST(StringFunction, strstr) {
     EXPECT_EQ(String::strlen(str), ptr7-str+1);
     EXPECT_EQ(String::strlen(str)-3, ptr8-str+1);
     EXPECT_EQ(nullptr, ptr9);
+
+    char haystack[10] = "somethin";
+    const char* p = String::strstr(haystack, "");
+    EXPECT_EQ(nullptr, p);
 }
 

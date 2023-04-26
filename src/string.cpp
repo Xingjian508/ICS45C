@@ -178,7 +178,13 @@ String& String::operator=(const String &s) {
 }
 
 char& String::operator[](int index) {
-    return buf[index];
+    int n = String::strlen(buf);
+    if (0<index && index<n)
+        return buf[index];
+    else {
+        cout << "ERROR" << endl;
+        return buf[0];
+    }
 }
 
 String String::reverse() {
@@ -210,7 +216,10 @@ String String::operator+(const String &s) {
 }
 
 String& String::operator+=(const String &s) {
-    String::strncat(buf, s.buf, MAXLEN-1-String::strlen(buf));
+    String r;
+    String::strcat(r.buf, buf);
+    String::strncat(r.buf, s.buf, MAXLEN-1-String::strlen(r.buf));
+    String::strcpy(buf, r.buf);
     return *this;
 }
 

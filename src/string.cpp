@@ -86,15 +86,14 @@ void String::reverse_cpy(char* dest, const char* src) {
 
 const char* String::strchr(const char* str, char c) {
     const char* ptr = nullptr;
-    if (c=='\0') {
-        return ptr;
-    }
-    for (int i=0; str[i] != '\0'; ++i) {
+    int i;
+    for (i=0; str[i] != '\0'; ++i) {
         if (str[i] == c) {
             ptr = &str[i];
             break;
         }
     }
+    if (c == '\0') ptr = &a[i];
     return ptr;
 }
 
@@ -102,7 +101,7 @@ const char* String::strstr(const char* haystack, const char* needle) {
     const char* ptr = nullptr;
     int needleLength = String::strlen(needle);
     if (needleLength == 0) {
-        return ptr;
+        return haystack;
     }
     int cycle = String::strlen(haystack)-needleLength+1;
     for (int i=0; i<cycle; ++i) {

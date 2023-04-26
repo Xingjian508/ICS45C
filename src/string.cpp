@@ -211,14 +211,14 @@ int String::indexOf(const String &s) {
 String String::operator+(const String &s) {
     String r;
     String::strcat(r.buf, buf);
-    String::strncat(r.buf, s.buf, MAXLEN-1-String::strlen(r.buf));
+    String::strncat(r.buf, s.buf, MAXLEN-String::strlen(r.buf));
     return r;
 }
 
 String& String::operator+=(const String &s) {
     String r;
     String::strcat(r.buf, buf);
-    String::strncat(r.buf, s.buf, MAXLEN-1-String::strlen(r.buf));
+    String::strncat(r.buf, s.buf, MAXLEN-String::strlen(r.buf));
     String::strcpy(buf, r.buf);
     return *this;
 }

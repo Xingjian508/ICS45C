@@ -205,12 +205,12 @@ int String::indexOf(const String &s) {
 String String::operator+(const String &s) {
     String r;
     String::strcat(r.buf, buf);
-    String::strncat(r.buf, s.buf, MAX_LEN-1-String::strlen(r.buf));
+    String::strncat(r.buf, s.buf, MAXLEN-1-String::strlen(r.buf));
     return r;
 }
 
 String& String::operator+=(const String &s) {
-    String::strncat(buf, s.buf, MAX_LEN-1-String::strlen(buf));
+    String::strncat(buf, s.buf, MAXLEN-1-String::strlen(buf));
     return *this;
 }
 

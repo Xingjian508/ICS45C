@@ -32,7 +32,7 @@ public:
 
     // returns index into this string for first occurrence of s.
     int indexOf(const String &s);
-
+*/
     // relational operators for comparing this string to another string.
     bool operator==(const String &s) const;
     bool operator!=(const String &s) const;
@@ -40,7 +40,7 @@ public:
     bool operator<(const String &s) const;
     bool operator<=(const String &s) const;
     bool operator>=(const String &s) const;
-
+/*
     // concatenate this and s to form a return string.
     String operator+(const String &s);
 
@@ -76,10 +76,9 @@ public:
     static int strcmp(const char *left, const char *right);
     static int strncmp(const char *left, const char *right, int n);
     static void reverse_cpy(char *dest, const char *src);
-    /*
     static const char *strchr(const char *str, char c);
     static const char *strstr(const char *haystack, const char *needle);
-*/
+
 private:
     char buf[MAXLEN];
 

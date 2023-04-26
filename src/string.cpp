@@ -79,10 +79,46 @@ void String::reverse_cpy(char* dest, const char* src) {
     dest[j] = '\0';
 }
 
+const char* String::strchr(const char* str, char c) {
+    const char* ptr = nullptr;
+    for (int i=0; str[i] != '\0'; ++i) {
+        if (str[i] == c) {
+            ptr = &str[i];
+            break;
+        }
+    }
+    return ptr;
+}
+
+const char* String::strstr(const char* haystack, const char* needle) {
+    const char* ptr = nullptr;
+    int needleLength = String::strlen(needle);
+    if (needleLength == 0) {
+        return ptr;
+    }
+    int cycle = String::strlen(haystack)-needleLength+1;
+    for (int i=0; i<cycle; ++i) {
+        int step = 0;
+        for (; step<needleLength; ++step) {
+            if (haystack[i+step] != needle[step])
+                break;
+        }
+        if (step == needleLength) {
+            ptr = &haystack[i];
+            break;
+        }
+    }
+    return ptr;
+}
+
 void String::print(std::ostream &out) const {
     for (int i=0; buf[i] != '\0'; ++i)
         out << buf[i];
-    out << endl;
+}
+
+std::ostream &operator<<(std::ostream &out, const String &s) {
+    s.print(out);
+    return out;
 }
 
 String::String(const char *s) {
@@ -94,9 +130,38 @@ String::String(const String &s) {
 }
 
 int String::size() {
-    int i;
-    for (i=0; buf[i] != '\0'; ++i) {
+    return strlen(buf);
+}
+
+String::~String() {
+}
+
+bool String::operator==(const String &s) const {
+    if (String::strcmp(buf, s.buf) == 0) {
+        return true;
     }
-    return i;
+    else {
+        return false;
+    }
+}
+
+bool String::operator!=(const String &s) const {
+    return (!(String::strcmp(buf, s.buf)));
+}
+
+bool String::operator>(const String &s) const {
+    return ((String::strcmp(buf, s.buf)) > 0);
+}
+
+bool String::operator<(const String &s) const {
+    return ((String::strcmp(buf, s.buf)) < 0);
+}
+
+bool String::operator<=(const String &s) const {
+    return ((String::strcmp(buf, s.buf)) <= 0);
+}
+
+bool String::operator>=(const String &s) const {
+    return ((String::strcmp(buf, s.buf)) >= 0);
 }
 

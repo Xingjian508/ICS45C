@@ -38,7 +38,7 @@ TEST(StringClass, Comparisons) {
     EXPECT_EQ(String("foo"), String("foo"));
     EXPECT_NE(String("foo"), String("fooo"));
 }
-/*
+
 TEST(StringClass, Assignment) {
     String s("test"), t("foo");
 
@@ -49,10 +49,37 @@ TEST(StringClass, Assignment) {
     s = s;
     EXPECT_EQ(s.size(), t.size());
     EXPECT_EQ(s, t);
+    EXPECT_EQ(s[1], t[1]);
 
     s = String();
     EXPECT_EQ(s, String());
     EXPECT_EQ(s.size(), 0);
 }
 
-*/
+TEST(StringClass, Reversal) {
+    String a("hell");
+    String b = a.reverse();
+    String c("lleh");
+    EXPECT_EQ(b, c);
+}
+
+TEST(StringClass, Indexing) {
+    String a("Something");
+    EXPECT_EQ(a.indexOf('e'), 3);
+    EXPECT_NE(a.indexOf('e'), 4);
+    String b("thin");
+    EXPECT_EQ(a.indexOf(b), 4);
+    String c("ome");
+    EXPECT_EQ(a.indexOf(c), 1);
+}
+
+TEST(StringClass, Concatenation) {
+    String a("Begin");
+    String b("End");
+    String c(a+b);
+    String d("BeginEnd");
+    EXPECT_EQ(c, d);
+    a += b;
+    EXPECT_EQ(a, c);
+    EXPECT_EQ(a, d);
+}

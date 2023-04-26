@@ -165,3 +165,51 @@ bool String::operator>=(const String &s) const {
     return ((String::strcmp(buf, s.buf)) >= 0);
 }
 
+String& String::operator=(const String &s) {
+    String::strcpy(buf, s.buf);
+    return *this;
+}
+
+char& String::operator[](int index) {
+    return buf[index];
+}
+
+String String::reverse() {
+    String r;
+    String::reverse_cpy(r.buf, buf);
+    return r;
+}
+
+int String::indexOf(char c) {
+    int index = (char*) String::strchr(buf, c)-buf;
+    return index;
+}
+
+int String::indexOf(const String &s) {
+    char* otherbuf = (char*) s.buf;
+    int index = (char*) String::strstr(buf, otherbuf)-buf;
+    return index;
+}
+
+String String::operator+(const String &s) {
+    String r;
+    String::strcat(r.buf, buf);
+    String::strcat(r.buf, s.buf);
+    return r;
+}
+
+String& String::operator+=(const String &s) {
+    String::strcat(buf, s.buf);
+    return *this;
+}
+
+void String::read(std::istream &in) {
+    in >> buf;
+}
+
+std::istream &operator>>(std::istream &in, String &s) {
+    s.read(in);
+    return in;
+}
+
+

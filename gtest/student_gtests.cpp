@@ -90,6 +90,9 @@ TEST(StringFunction, strchr) {
     char tstr[1] = "";
     const char* ptr4 = String::strchr(tstr, 'a');
     EXPECT_EQ(nullptr, ptr4);
+    char str3[4] = "abc";
+    const char* ptr5 = String::strchr(str3, '\0');
+    EXPECT_EQ(nullptr, ptr5);
 }
 
 TEST(StringFunction, strstr) {

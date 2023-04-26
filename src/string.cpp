@@ -210,16 +210,28 @@ int String::indexOf(const String &s) {
 
 String String::operator+(const String &s) {
     String r;
-    String::strcat(r.buf, buf);
-    String::strncat(r.buf, s.buf, MAXLEN-String::strlen(r.buf));
+    int n = MAXLEN-String::strlen(r.buf);
+    if (n<0 || (n==0 && strlen(s.buf) != 0)) {
+        cout << "ERROR" << endl;
+    }
+    else {
+        String::strcat(r.buf, buf);
+        String::strncat(r.buf, s.buf, n);
+    }
     return r;
 }
 
 String& String::operator+=(const String &s) {
     String r;
-    String::strcat(r.buf, buf);
-    String::strncat(r.buf, s.buf, MAXLEN-String::strlen(r.buf));
-    String::strcpy(buf, r.buf);
+    int n = MAXLEN-String::strlen(r.buf);
+    if (n<0 || (n==0 && strlen(s.buf) != 0)) {
+        cout << "ERROR" << endl;
+    }
+    else {
+        String::strcat(r.buf, buf);
+        String::strncat(r.buf, s.buf, n);
+        String::strcpy(buf, r.buf);
+    }
     return *this;
 }
 

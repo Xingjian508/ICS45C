@@ -210,7 +210,7 @@ int String::indexOf(const String &s) {
 
 String String::operator+(const String &s) {
     String r("");
-    int n = MAXLEN-1-String::strlen(r.buf);
+    int n = MAXLEN-1-String::strlen(buf);
     if (n<=0 || (n==0 && strlen(s.buf) != 0)) {
         cout << "ERROR" << endl;
     }
@@ -223,7 +223,7 @@ String String::operator+(const String &s) {
 
 String& String::operator+=(const String &s) {
     String r("");
-    int n = MAXLEN-1-String::strlen(r.buf);
+    int n = MAXLEN-1-String::strlen(buf);
     if (n<=0 || (n==0 && strlen(s.buf) != 0)) {
         cout << "ERROR" << endl;
     }

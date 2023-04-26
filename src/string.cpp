@@ -52,7 +52,7 @@ char* String::strncat(char *dest, const char *src, int n) {
 }
 
 int String::strcmp(const char *left, const char *right) {
-    int i;
+    int i=0;
     for (i=0; left[i] != '\0' && right[i] != '\0'; ++i) {
         if (left[i] != right[i])
             return (left[i] - right[i]);
@@ -64,12 +64,14 @@ int String::strcmp(const char *left, const char *right) {
 }
 
 int String::strncmp(const char *left, const char *right, int n) {
-    int i;
-    for (i=0; i<n && left[i] != '\0' && right[i] != '\0'; ++i) {
+    int i=0;
+    for (i=0; i<n && left[i] != '\0'; ++i) {
         if (left[i] != right[i])
             return (left[i] - right[i]);
     }
-    return 0;
+    if (i == n) return 0;
+    else if (right[i] == '\0') return 0;
+    else return (left[i]-right[i]);
 }
 
 void String::reverse_cpy(char* dest, const char* src) {

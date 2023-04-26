@@ -64,6 +64,7 @@ TEST(StringFunction, strncmp) {
     EXPECT_EQ(String::strncmp("", "", 10), 0);
     EXPECT_EQ(String::strncmp("BA", "BCD", 1), 0);
     EXPECT_EQ(String::strncmp("BA", "BCD", 2), -('C' - 'A'));
+    EXPECT_TRUE((String::strncmp("test", "testa", 10)) < (0));
 }
 
 TEST(StringFunction, reverse_cpy) {

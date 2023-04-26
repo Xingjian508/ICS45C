@@ -188,13 +188,17 @@ String String::reverse() {
 }
 
 int String::indexOf(char c) {
-    int index = (char*) String::strchr(buf, c)-buf;
+    char* foundptr = (char*) String::strchr(buf, c);
+    if (foundptr == nullptr) return -1;
+    int index = foundptr-buf;
     return index;
 }
 
 int String::indexOf(const String &s) {
     char* otherbuf = (char*) s.buf;
-    int index = (char*) String::strstr(buf, otherbuf)-buf;
+    char* foundptr = (char*) String::strstr(buf, otherbuf);
+    if (foundptr == nullptr) return -1;
+    int index = foundptr-buf;
     return index;
 }
 

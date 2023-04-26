@@ -93,7 +93,7 @@ const char* String::strchr(const char* str, char c) {
             break;
         }
     }
-    if (c == '\0') ptr = &a[i];
+    if (c == '\0') ptr = &str[i];
     return ptr;
 }
 

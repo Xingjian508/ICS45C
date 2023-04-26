@@ -136,7 +136,7 @@ String::String(const String &s) {
     strcpy(buf, s.buf);
 }
 
-int String::size() {
+int String::size() const {
     return strlen(buf);
 }
 
@@ -187,20 +187,20 @@ char& String::operator[](int index) {
     }
 }
 
-String String::reverse() {
+String String::reverse() const {
     String r;
     String::reverse_cpy(r.buf, buf);
     return r;
 }
 
-int String::indexOf(char c) {
+int String::indexOf(char c) const {
     char* foundptr = (char*) String::strchr(buf, c);
     if (foundptr == nullptr) return -1;
     int index = foundptr-buf;
     return index;
 }
 
-int String::indexOf(const String &s) {
+int String::indexOf(const String &s) const {
     char* otherbuf = (char*) s.buf;
     char* foundptr = (char*) String::strstr(buf, otherbuf);
     if (foundptr == nullptr) return -1;
@@ -208,7 +208,7 @@ int String::indexOf(const String &s) {
     return index;
 }
 
-String String::operator+(const String &s) {
+String String::operator+(const String &s) const {
     String r("");
     int n = MAXLEN-1-String::strlen(buf);
     if (n<=0 || (n==0 && strlen(s.buf) != 0)) {

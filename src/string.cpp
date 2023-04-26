@@ -30,8 +30,7 @@ char* String::strncpy(char *dest, const char *src, int n) {
 }
 
 char* String::strcat(char *dest, const char *src) {
-    int i;
-    for (i=0; dest[i] != '\0'; ++i) {}
+    int i = String::strlen(dest);
     for (int j=0; src[j] != '\0'; ++j) {
         dest[i] = src[j];
         ++i;
@@ -41,8 +40,7 @@ char* String::strcat(char *dest, const char *src) {
 }
 
 char* String::strncat(char *dest, const char *src, int n) {
-    int i;
-    for (i=0; dest[i] != '\0'; ++i) {}
+    int i = String::strlen(dest);
     for (int j=0; j<n && src[j] != '\0'; ++j) {
         dest[i] = src[j];
         ++i;
@@ -53,7 +51,7 @@ char* String::strncat(char *dest, const char *src, int n) {
 
 int String::strcmp(const char *left, const char *right) {
     int i=0;
-    for (i=0; left[i] != '\0' && right[i] != '\0'; ++i) {
+    for (; left[i] != '\0' && right[i] != '\0'; ++i) {
         if (left[i] != right[i])
             return (left[i] - right[i]);
     }
@@ -65,13 +63,16 @@ int String::strcmp(const char *left, const char *right) {
 
 int String::strncmp(const char *left, const char *right, int n) {
     int i=0;
-    for (i=0; i<n && left[i] != '\0'; ++i) {
+    for (; i<n && left[i] != '\0'; ++i) {
         if (left[i] != right[i])
             return (left[i] - right[i]);
     }
-    if (i == n) return 0;
-    else if (right[i] == '\0') return 0;
-    else return (left[i]-right[i]);
+    if (i == n)
+        return 0;
+    else if (right[i] == '\0')
+        return 0;
+    else
+        return (left[i]-right[i]);
 }
 
 void String::reverse_cpy(char* dest, const char* src) {
@@ -93,7 +94,8 @@ const char* String::strchr(const char* str, char c) {
             break;
         }
     }
-    if (c == '\0') ptr = &str[i];
+    if (c == '\0')
+        ptr = &str[i];
     return ptr;
 }
 
@@ -101,16 +103,16 @@ const char* String::strstr(const char* haystack, const char* needle) {
     const char* ptr = nullptr;
     int needleLength = String::strlen(needle);
     if (needleLength == 0) {
-        return haystack;
+        return haystack; // Returns the haystack pointer if needle is "".
     }
     int cycle = String::strlen(haystack)-needleLength+1;
     for (int i=0; i<cycle; ++i) {
         int step = 0;
         for (; step<needleLength; ++step) {
             if (haystack[i+step] != needle[step])
-                break;
+                break; // Break out of the loop at a non-equal comparison.
         }
-        if (step == needleLength) {
+        if (step == needleLength) { // If that iteration was successful, i.e. str exist.
             ptr = &haystack[i];
             break;
         }
@@ -195,7 +197,8 @@ String String::reverse() const {
 
 int String::indexOf(char c) const {
     char* foundptr = (char*) String::strchr(buf, c);
-    if (foundptr == nullptr) return -1;
+    if (foundptr == nullptr)
+        return -1;
     int index = foundptr-buf;
     return index;
 }
@@ -203,17 +206,17 @@ int String::indexOf(char c) const {
 int String::indexOf(const String &s) const {
     char* otherbuf = (char*) s.buf;
     char* foundptr = (char*) String::strstr(buf, otherbuf);
-    if (foundptr == nullptr) return -1;
+    if (foundptr == nullptr)
+        return -1;
     int index = foundptr-buf;
     return index;
 }
 
 String String::operator+(const String &s) const {
-    String r("");
-    int n = MAXLEN-1-String::strlen(buf);
-    if (n<=0 || (n==0 && strlen(s.buf) != 0)) {
+    String r(""); // Creates a new string object to copy this into.
+    int n = (MAXLEN-1)-String::strlen(buf); // Here, MAXLEN-1 denotes the logical length of a max string.
+    if (n<=0) // If buf is already at max length.
         cout << "ERROR" << endl;
-    }
     else {
         String::strcat(r.buf, buf);
         String::strncat(r.buf, s.buf, n);
@@ -222,14 +225,13 @@ String String::operator+(const String &s) const {
 }
 
 String& String::operator+=(const String &s) {
-    String r("");
-    int n = MAXLEN-1-String::strlen(buf);
-    if (n<=0 || (n==0 && strlen(s.buf) != 0)) {
+    String r(""); // Creates a new string object to copy this into.
+    int n = (MAXLEN-1)-String::strlen(buf); // Again, the logical length of a max string minus len of buf.
+    if (n<=0) // If buf is already at max length.
         cout << "ERROR" << endl;
-    }
     else {
         String::strcat(r.buf, buf);
-        String::strncat(r.buf, s.buf, n);
+        String::strncat(r.buf, s.buf, n); // Copying up to the string length difference.
         String::strcpy(buf, r.buf);
     }
     return *this;
@@ -240,7 +242,7 @@ void String::read(std::istream &in) {
 }
 
 std::istream &operator>>(std::istream &in, String &s) {
-    s.read(in);
+    s.read(in); // As ED dicussion suggests, this does not create any errors.
     return in;
 }
 

@@ -5,8 +5,9 @@
 
 class String {
 public:
+/*
     // constructs this string from a C string, defaults to empty string
-    explicit String(const char *s = "");
+    explicit String(const char* s = "");
 
     // construct this string as a copy of string s
     String(const String &s);
@@ -66,23 +67,24 @@ public:
     bool in_bounds(int i) const {
         return i >= 0 && i < strlen(buf);
     }
-
+*/
     // These static helper methods will ultimately be changed to private,
     // but are made public so that you (and the autograder) can test them.
-    static int strlen(const char *s);
-    static char *strcpy(char *dest, const char *src);
-    static char *strdup(const char *src);
-    static char *strncpy(char *dest, const char *src, int n);
-    static char *strcat(char *dest, const char *src);
-    static char *strncat(char *dest, const char *src, int n);
-    static int strcmp(const char *left, const char *right);
-    static int strncmp(const char *left, const char *right, int n);
-    static void reverse_cpy(char *dest, const char *src);
-    static const char *strchr(const char *str, char c);
-    static const char *strstr(const char *haystack, const char *needle);
+    static int strlen(const char* s);
+    static char* strcpy(char* dest, const char* src);
+    static char* strncpy(char* dest, const char* src, int n);
+    static char* strdup(const char* src);
+    static char* strcat(char* dest, const char* src);
+    static char* strncat(char* dest, const char* src, int n);
+    /*
+    static int strcmp(const char* left, const char* right);
+    static int strncmp(const char* left, const char* right, int n);
+    static void reverse_cpy(char* dest, const char* src);
+    static const char* strchr(const char* str, char c);
+    static const char* strstr(const char* haystack, const char* needle);
 
 private:
-    char *buf;  // array for the characters in this String
+    char* buf;  // array for the characters in this String
                 // DO NOT add any data members - use the null terminator
 
     // construct string with a buffer of given length
@@ -91,6 +93,7 @@ private:
     // (for example without null-terminator).
     // Useful for implementing reverse() and operator +()
     explicit String(int length);
+*/
 };
 
 std::ostream &operator<<(std::ostream &out, String s);

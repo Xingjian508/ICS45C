@@ -35,7 +35,7 @@ char* String::strncpy(char* dest, const char* src, int n) {
 char* String::strdup(const char* src) {
     int l = String::strlen(src)+1; // Finds the allocation length needed.
     char* heapstr{new char[l]}; // Creates new via heap.
-    String::strcpy(heapstr, src); // Copy the src over.
+    heapstr = String::strcpy(heapstr, src); // Copy the src over.
     return heapstr;
 }
 
@@ -131,17 +131,60 @@ String::String(int length) {
 }
 
 
-String::String(const char* s) {
-    buf = strdup(s);
+String::String(const char* s): buf{strdup(s)} {
+    
 }
 
 
-String::String(const String &s) {
-    buf = strdup(s.buf);
+String::String(const String &s): buf{strdup(s.buf)} {
+}
+
+
+String::~String() {
+    delete[] buf;
 }
 
 
 int String::size() const {
     return String::strlen(buf);
 }
+
+
+void String::print(std::ostream &out) const {
+    for (int i=0; buf[i] != '\0'; ++i)
+        out << buf[i];
+}
+
+
+std::ostream &operator<<(std::ostream &out, String s) {
+    s.print(out);
+    return out;
+}
+
+
+bool String::operator==(String s) const {
+    return (String::strcmp(buf, s.buf) == 0);
+}
+
+bool String::operator!=(String s) const {
+    return (!(String::strcmp(buf, s.buf) == 0));
+}
+
+bool String::operator>(String s) const {
+    return ((String::strcmp(buf, s.buf)) > 0);
+}
+
+bool String::operator<(String s) const {
+    return ((String::strcmp(buf, s.buf)) < 0);
+}
+
+bool String::operator<=(String s) const {
+    return ((String::strcmp(buf, s.buf)) <= 0);
+}
+
+bool String::operator>=(String s) const {
+    return ((String::strcmp(buf, s.buf)) >= 0);
+}
+
+
 

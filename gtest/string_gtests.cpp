@@ -15,7 +15,7 @@ TEST(StringClass, Constructors) {
     EXPECT_EQ(t.size(), 5);
     EXPECT_EQ(s.size(), 5);
 }
-/*
+
 TEST(StringClass, Print) {
     String s("foo");
     stringstream out;
@@ -37,7 +37,7 @@ TEST(StringClass, Comparisons) {
     EXPECT_EQ(String("foo"), String("foo"));
     EXPECT_NE(String("foo"), String("fooo"));
 }
-
+/*
 TEST(StringClass, Assignment) {
     String s("test"), t("foo");
 

@@ -10,12 +10,11 @@ public:
 
     // construct this string as a copy of string s
     String(const String &s);
-/*
     // construct this string by moving from string s
     // String(String &&s);
     // swap buf between this string and s using std::swap, explained later
     void swap(String &s);
-
+/*
     // assignment operator from one string, s, to this string
     String &operator=(String s);
 
@@ -39,7 +38,7 @@ public:
 
     // returns index into this string for first occurrence of s
     int indexOf(String s) const;
-
+*/
     // relational operators for comparing this strings to another string
     bool operator==(String s) const;
     bool operator!=(String s) const;
@@ -56,18 +55,17 @@ public:
 
     // print this string, hint: use operator << to send buf to out
     void print(std::ostream &out) const;
-
+/*
     // read next word into this string
     // hint: use operator >> to read from in into buf
     void read(std::istream &in);
-
+*/
     // destructor for this string
     ~String();
 
     bool in_bounds(int i) const {
         return i >= 0 && i < strlen(buf);
     }
-*/
     // These static helper methods will ultimately be changed to private,
     // but are made public so that you (and the autograder) can test them.
     static int strlen(const char* s);
@@ -96,5 +94,5 @@ private:
 };
 
 std::ostream &operator<<(std::ostream &out, String s);
-std::istream &operator>>(std::istream &in, String &s);
+// std::istream &operator>>(std::istream &in, String &s);
 #endif

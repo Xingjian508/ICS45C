@@ -27,8 +27,11 @@ TEST(StringFunction, strcpy) {
 
 TEST(StringFunction, strdup) {
     char* heapstr = String::strdup("ohmygosh");
+    char* anotherheapstr = String::strdup("S");
     EXPECT_EQ(String::strlen(heapstr), 8);
+    EXPECT_EQ(String::strlen(anotherheapstr), 1);
     delete[] heapstr;
+    delete[] anotherheapstr;
 }
 
 TEST(StringFunction, strncpy) {

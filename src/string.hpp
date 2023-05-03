@@ -5,13 +5,12 @@
 
 class String {
 public:
-/*
     // constructs this string from a C string, defaults to empty string
     explicit String(const char* s = "");
 
     // construct this string as a copy of string s
     String(const String &s);
-
+/*
     // construct this string by moving from string s
     // String(String &&s);
     // swap buf between this string and s using std::swap, explained later
@@ -76,7 +75,6 @@ public:
     static char* strdup(const char* src);
     static char* strcat(char* dest, const char* src);
     static char* strncat(char* dest, const char* src, int n);
-    /*
     static int strcmp(const char* left, const char* right);
     static int strncmp(const char* left, const char* right, int n);
     static void reverse_cpy(char* dest, const char* src);
@@ -93,7 +91,7 @@ private:
     // (for example without null-terminator).
     // Useful for implementing reverse() and operator +()
     explicit String(int length);
-*/
+
 };
 
 std::ostream &operator<<(std::ostream &out, String s);

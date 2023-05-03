@@ -28,8 +28,9 @@ public:
     const char &operator[](int index) const;
 
     // returns the logical length of this string (# of chars up to '\0')
+*/
     int size() const;
-
+/*
     // returns a reversal of this string, does not modify this string
     String reverse() const;
 

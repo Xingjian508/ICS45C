@@ -70,6 +70,7 @@ int String::strcmp(const char* left, const char* right) {
     return (left[i] - right[i]);
 }
 
+
 int String::strncmp(const char* left, const char* right, int n) {
     int i;
     for (i=0; left[i] != '\0' && i<n; ++i)
@@ -122,5 +123,25 @@ const char* String::strstr(const char* haystack, const char* needle) {
         }
     }
     return ptr;
+}
+
+
+String::String(int length) {
+    buf = new char[length];
+}
+
+
+String::String(const char* s) {
+    buf = strdup(s);
+}
+
+
+String::String(const String &s) {
+    buf = strdup(s.buf);
+}
+
+
+int String::size() const {
+    return String::strlen(buf);
 }
 

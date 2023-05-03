@@ -14,19 +14,24 @@ int String::strlen(const char* s) {
 
 char* String::strcpy(char* dest, const char* src) {
     int i;
-    for (i=0; src[i] != '\0'; ++i) {
+    for (i=0; src[i] != '\0'; ++i)
         dest[i] = src[i];
-    }
     dest[i] = '\0';
     return dest;
+}
+
+void String::reverse_cpy(char* dest, const char* src) {
+    int end = String::strlen(src)-1;
+    for (int i=0; i<=end; ++i)
+        dest[i] = src[end-i];
+    dest[end+1] = '\0';
 }
 
 
 char* String::strncpy(char* dest, const char* src, int n) {
     int i;
-    for (i=0; src[i] != '\0' && i<n; ++i) {
+    for (i=0; src[i] != '\0' && i<n; ++i)
         dest[i] = src[i];
-    }
     dest[i] = '\0';
     return dest;
 }
@@ -35,7 +40,15 @@ char* String::strncpy(char* dest, const char* src, int n) {
 char* String::strdup(const char* src) {
     int l = String::strlen(src)+1; // Finds the allocation length needed.
     char* heapstr{new char[l]}; // Creates new via heap.
-    heapstr = String::strcpy(heapstr, src); // Copy the src over.
+    String::strcpy(heapstr, src); // Copies the src over.
+    return heapstr;
+}
+
+
+char* String::reverse_strdup(const char* src) {
+    int l = String::strlen(src)+1; // Allocation length.
+    char* heapstr{new char[l]}; // Creates.
+    String::reverse_cpy(heapstr, src); // Reverse copies.
     return heapstr;
 }
 
@@ -62,6 +75,15 @@ char* String::strncat(char* dest, const char* src, int n) {
 }
 
 
+char* String::double_strdup(const char* str1, const char* str2) {
+    int l = String::strlen(str1)+String::strlen(str2)+1;
+    char* heapstr{new char[l]{'\0'}};
+    String::strcat(heapstr, str1);
+    String::strcat(heapstr, str2);
+    return heapstr;
+}
+
+
 int String::strcmp(const char* left, const char* right) {
     int i;
     for (i=0; left[i] != '\0'; ++i)
@@ -79,14 +101,6 @@ int String::strncmp(const char* left, const char* right, int n) {
     if (i==n)
         return 0;
     return (left[i] - right[i]);
-}
-
-
-void String::reverse_cpy(char* dest, const char* src) {
-    int end = String::strlen(src)-1;
-    for (int i=0; i<=end; ++i)
-        dest[i] = src[end-i];
-    dest[end+1] = '\0';
 }
 
 
@@ -132,11 +146,10 @@ String::String(int length) {
 
 
 String::String(const char* s): buf{strdup(s)} {
-    
 }
 
 
-String::String(const String &s): buf{strdup(s.buf)} {
+String::String(const String& s): buf{strdup(s.buf)} {
 }
 
 
@@ -150,41 +163,145 @@ int String::size() const {
 }
 
 
-void String::print(std::ostream &out) const {
+void String::print(std::ostream& out) const {
     for (int i=0; buf[i] != '\0'; ++i)
         out << buf[i];
 }
 
 
-std::ostream &operator<<(std::ostream &out, String s) {
+bool String::operator==(const String& s) const {
+    return (String::strcmp(buf, s.buf) == 0);
+}
+
+bool String::operator!=(const String& s) const {
+    return (!(String::strcmp(buf, s.buf) == 0));
+}
+
+bool String::operator>(const String& s) const {
+    return ((String::strcmp(buf, s.buf)) > 0);
+}
+
+bool String::operator<(const String& s) const {
+    return ((String::strcmp(buf, s.buf)) < 0);
+}
+
+bool String::operator<=(const String& s) const {
+    return ((String::strcmp(buf, s.buf)) <= 0);
+}
+
+bool String::operator>=(const String& s) const {
+    return ((String::strcmp(buf, s.buf)) >= 0);
+}
+
+
+String& String::operator=(const String& s) {
+    if (this == &s) return *this;
+    if (buf) delete[] buf;
+
+    buf = strdup(s.buf);
+    return *this;
+}
+
+
+char& String::operator[](int index) {
+    int n = String::strlen(buf);
+    if (0<index && index<n)
+        return buf[index];
+    else {
+        cout << "ERROR" << endl;
+        return buf[0];
+    }
+}
+
+
+const char& String::operator[](int index) const {
+    int n = String::strlen(buf);
+    if (0<index && index<n)
+        return buf[index];
+    else
+        cout << "ERROR" << endl;
+    return buf[0];
+}
+
+
+String String::reverse() const {
+    char* revstr = reverse_strdup(buf);
+    String reversed(revstr);
+    delete[] revstr;
+    return reversed;
+}
+
+
+int String::indexOf(char c) const {
+    char* foundptr = (char*) String::strchr(buf, c);
+
+    if (foundptr == nullptr) return -1;
+
+    int index = foundptr-buf;
+    return index;
+}
+
+
+int String::indexOf(const String& s) const {
+    char* otherbuf = (char*) s.buf;
+    char* foundptr = (char*) String::strstr(buf, otherbuf);
+
+    if (foundptr == nullptr) return -1;
+    int index = foundptr-buf;
+
+    return index;
+}
+
+
+String String::operator+(const String& s) const {
+    char* concatstr = double_strdup(buf, s.buf);
+    String concatenated(concatstr);
+    delete[] concatstr;
+    return concatenated;
+}
+
+
+String& String::operator+=(const String& s) {
+    char* concatstr = double_strdup(buf, s.buf);
+    delete[] buf;
+    buf = concatstr;
+    return *this;
+}
+
+
+void String::read(std::istream& in) {
+    char tempbuf[1024];
+    in >> tempbuf;
+
+    char* concatstr = double_strdup(buf, tempbuf);
+    delete[] buf;
+
+    buf = concatstr;
+}
+
+
+std::ostream& operator<<(std::ostream& out, String s) {
     s.print(out);
     return out;
 }
 
 
-bool String::operator==(String s) const {
-    return (String::strcmp(buf, s.buf) == 0);
-}
-
-bool String::operator!=(String s) const {
-    return (!(String::strcmp(buf, s.buf) == 0));
-}
-
-bool String::operator>(String s) const {
-    return ((String::strcmp(buf, s.buf)) > 0);
-}
-
-bool String::operator<(String s) const {
-    return ((String::strcmp(buf, s.buf)) < 0);
-}
-
-bool String::operator<=(String s) const {
-    return ((String::strcmp(buf, s.buf)) <= 0);
-}
-
-bool String::operator>=(String s) const {
-    return ((String::strcmp(buf, s.buf)) >= 0);
+std::istream& operator>>(std::istream& in, String& s) {
+    s.read(in);
+    return in;
 }
 
 
+String::String(String && s) {
+    buf = s.buf;
+    s.buf = nullptr;
+}
+
+
+String& String::operator=(String && s) {
+    delete[] buf;
+    buf = s.buf;
+    s.buf = nullptr;
+    return *this;
+}
 

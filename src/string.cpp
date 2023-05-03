@@ -142,6 +142,7 @@ const char* String::strstr(const char* haystack, const char* needle) {
 
 String::String(int length) {
     buf = new char[length];
+    buf[length-1] = '\0';
 }
 
 
@@ -225,9 +226,8 @@ const char& String::operator[](int index) const {
 
 
 String String::reverse() const {
-    char* revstr = reverse_strdup(buf);
-    String reversed(revstr);
-    delete[] revstr;
+    String reversed(String::strlen(buf)+1);
+    reverse_cpy(reversed.buf, buf);
     return reversed;
 }
 
@@ -254,10 +254,12 @@ int String::indexOf(const String& s) const {
 
 
 String String::operator+(const String& s) const {
-    char* concatstr = double_strdup(buf, s.buf);
-    String concatenated(concatstr);
-    delete[] concatstr;
-    return concatenated;
+    int l = String::strlen(buf)+String::strlen(s.buf)+1;
+    String con(l);
+    con.buf[0] = '\0';
+    String::strcat(con.buf, buf);
+    String::strcat(con.buf, s.buf);
+    return con;
 }
 
 

@@ -15,7 +15,7 @@ public:
     String(String && s);
 
     // swap buf between this string and s using std::swap, explained later
-    void swap(const String& s);
+    void swap(String& s);
 
     // assignment operator from one string, s, to this string
     String& operator=(const String& s);

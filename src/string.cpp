@@ -305,3 +305,9 @@ String& String::operator=(String && s) {
     return *this;
 }
 
+
+void String::swap(String& s) {
+    char* temp = buf;
+    buf = s.buf;
+    s.buf = temp;
+}

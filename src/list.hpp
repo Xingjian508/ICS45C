@@ -36,7 +36,7 @@ Node* reverse(Node* head);
 
 // returns new list containing all nodes of lhs followed by all nodes of rhs
 Node* append(Node* lhs, Node* rhs);
-
+/*
 // returns index of node in list starting at head
 int index(Node* head, Node* node);
 
@@ -51,7 +51,7 @@ Node* nth(Node* head, int n);
 
 // get the last node of linked list
 Node* last(Node* head);
-
+*/
 };  // namespace list
 
 #endif

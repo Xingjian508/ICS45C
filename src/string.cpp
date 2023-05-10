@@ -53,7 +53,10 @@ bool String::in_bounds(int index) const {
 
 char String::operator[](int index) const {
     Node* c = list::nth(head, index);
-    return (c!=nullptr) ? c->data : '\0';;
+    if (c!=nullptr)
+        return c->data;
+    cout << "ERROR" << endl;
+    return '\0';
 }
 
 int String::size() const {
@@ -66,7 +69,7 @@ void String::read(std::istream& in) {
 
     Node* k = list::from_string(tempbuf);
     Node* l = list::last(head);
-    l->next = k;
+    if (l) l->next = k;
 }
 
 std::ostream& operator<<(std::ostream& out, const String& s) {

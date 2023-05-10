@@ -103,7 +103,7 @@ Node* list::append(Node* lhs, Node* rhs) {
 
 
 int list::index(Node* head, Node* node) {
-    if (node==nullptr) return 0;
+    if (node==nullptr) return -1;
     Node* b = head;
     for (int i=0; b!= nullptr; ++i, b=b->next)
         if (b==node) return i;

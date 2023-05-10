@@ -52,7 +52,8 @@ bool String::in_bounds(int index) const {
 }
 
 char String::operator[](int index) const {
-    return (list::nth(head, index)->data);
+    Node* c = list::nth(head, index);
+    return (c!=nullptr) ? c->data : '\0';;
 }
 
 int String::size() const {
@@ -106,9 +107,8 @@ String String::reverse() const {
 }
 
 String String::operator+(const String& s) const {
-    Node* r = list::append(head, s.head);
     String added("");
-    added.head = r;
+    added.head = list::append(head, s.head);
     return added;
 }
 

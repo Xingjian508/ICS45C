@@ -16,10 +16,10 @@ void list::free(Node* head) {
         Node* thisNode = head;
         Node* nextNode = head->next;
         for (; nextNode != nullptr; nextNode = nextNode->next) {
-            delete[] thisNode;
+            delete thisNode;
             thisNode = nextNode;
         }
-        delete[] thisNode;
+        delete thisNode;
     }
 }
 

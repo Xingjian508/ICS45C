@@ -35,10 +35,7 @@ public:
     // returns the logical length of this string (# of chars up to '\0')
     int size() const;
 
-    // returns a reversal of this string, does not modify this string
-    String reverse() const;
-
-    // returns index into this string for first occurrence of c
+        // returns index into this string for first occurrence of c
     int indexOf(char c) const;
 
     // returns index into this string for first occurrence of s
@@ -50,6 +47,9 @@ public:
 
     // C++20 way of defining all comparisons at once
     std::strong_ordering operator<=>(const String &s) const;
+
+    // returns a reversal of this string, does not modify this string
+    String reverse() const;
 
     // concatenate this and s to form a return string
     String operator+(const String &s) const;

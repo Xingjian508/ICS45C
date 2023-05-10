@@ -27,7 +27,6 @@ void list::free(Node* head) {
 void list::print(std::ostream& out, Node* head) {
     for (Node* k = head; k != nullptr; k = k->next)
         out << k->data;
-    out << endl;
 }
 
 

@@ -52,4 +52,6 @@ TEST(StringClass, Assignment) {
     s = String();
     EXPECT_EQ(s, String());
     EXPECT_EQ(s.size(), 0);
+
 }
+

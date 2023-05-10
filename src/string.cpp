@@ -70,7 +70,8 @@ void String::read(std::istream& in) {
 
     Node* k = list::from_string(tempbuf);
     Node* l = list::last(head);
-    if (l) l->next = k;
+    if (l!=nullptr) l->next = k;
+    else head = k;
 }
 
 std::ostream& operator<<(std::ostream& out, const String& s) {

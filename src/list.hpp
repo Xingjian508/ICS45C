@@ -36,7 +36,7 @@ Node* reverse(Node* head);
 
 // returns new list containing all nodes of lhs followed by all nodes of rhs
 Node* append(Node* lhs, Node* rhs);
-/*
+
 // returns index of node in list starting at head
 int index(Node* head, Node* node);
 
@@ -45,7 +45,7 @@ Node* find_char(Node* head, char c);
 
 // similar to strstr but for two linked lists
 Node* find_list(Node* haystack, Node* needle);
-
+/*
 // get the nth node of linked list
 Node* nth(Node* head, int n);
 

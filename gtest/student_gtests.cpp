@@ -73,21 +73,25 @@ TEST(ListTests, Reveral) {
     list::free(erhead);
     list::free(rhead);
 
-    Node* const h1 = list::from_string("");
+    Node* const h1 = list::from_string("i");
     Node* const rh1 = list::reverse(h1);
     EXPECT_EQ(list::compare(rh1, h1), 0);
     list::free(rh1);
     list::free(h1);
-
 }
 
 
 TEST(ListTests, Appending) {
-    Node* const a = list::from_string("");
-    Node* const b = list::from_string("");
+    Node* const a = list::from_string("i");
+    Node* const b = list::from_string("i");
     Node* const c = list::append(a, b);
-    Node* const d = list::append(c, c);
+    Node* const d = list::append(a, a);
+
     EXPECT_EQ(list::compare(c, d), 0);
+    list::free(a);
+    list::free(b);
+    list::free(c);
+    list::free(d);
 
     Node* const e = list::from_string("some");
     Node* const f = list::from_string("thing");
@@ -95,13 +99,41 @@ TEST(ListTests, Appending) {
     Node* const h = list::from_string("something");
 
     EXPECT_EQ(list::compare(g, h), 0);
-
-    list::free(a);
-    list::free(b);
-    list::free(c);
-    list::free(d);
     list::free(e);
     list::free(f);
     list::free(g);
     list::free(h);
 }
+
+
+TEST(ListTests, Indexing) {
+    Node* const a = list::from_string("1234567");
+    Node* b = a->next->next->next;
+    int n = list::index(a, b);
+    EXPECT_EQ(n, 3);
+
+    list::free(a);
+}
+
+TEST(ListTests, CharFinding) {
+    Node* const a = list::from_string("12345678");
+    Node* b = list::find_char(a, '4');
+    Node* c = list::find_char(a, '1');
+    Node* d = list::find_char(a, '8');
+    Node* e = list::find_char(a, '9');;
+    EXPECT_EQ(b->data, '4');
+    EXPECT_EQ(c->data, '1');
+    EXPECT_EQ(d->data, '8');
+    EXPECT_EQ(e, nullptr);
+    list::free(a);
+}
+
+
+TEST(ListTests, StrFinding) {
+    Node* a = list::from_string("123456789");
+    Node* b = list::from_string("234");
+    Node* c = list::find_list(a, b);
+    EXPECT_EQ(c->data, '2');
+    list::free(a);
+    list::free(b);
+} 

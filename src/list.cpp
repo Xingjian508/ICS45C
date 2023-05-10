@@ -12,13 +12,15 @@ Node* list::from_string(const char* s) {
 
 
 void list::free(Node* head) {
-    Node* thisNode = head;
-    Node* nextNode = head->next;
-    for (; nextNode != nullptr; nextNode = nextNode->next) {
-       delete[] thisNode;
-       thisNode = nextNode;
+    if (head) {
+        Node* thisNode = head;
+        Node* nextNode = head->next;
+        for (; nextNode != nullptr; nextNode = nextNode->next) {
+            delete[] thisNode;
+            thisNode = nextNode;
+        }
+        delete[] thisNode;
     }
-    delete[] thisNode;
 }
 
 
@@ -30,14 +32,16 @@ void list::print(std::ostream& out, Node* head) {
 
 
 int list::length(Node* head) {
-    int i = 1;
-    for (Node* k = head; k->next != nullptr; k = k->next)
+    int i = 0;
+    for (Node* k = head; k != nullptr; k = k->next)
         ++i;
     return i;
 }
 
 
 Node* list::copy(Node* head) {
+    if (!head) return nullptr;
+
     Node* c = head->next;
     Node* n = new Node{head->data, nullptr};
     Node* newNode = n;
@@ -74,33 +78,57 @@ int list::compare(Node* lhs, Node* rhs, int n) {
 
 
 Node* list::reverse(Node* head) {
-    Node* prev;
-    Node* newHead = new Node{head->data, nullptr};
-    Node* iter = head->next;
+    Node* r = nullptr;
+    Node* n = head;
 
-    for (; iter != nullptr; iter = iter->next) {
-        prev = newHead;
-        newHead = new Node{iter->data, nullptr};
-        newHead->next = prev;
-    }
-    return newHead;
+    for (; n != nullptr; n = n->next)
+        r = new Node{n->data, r};
+
+    return r;
 }
 
 
 Node* list::append(Node* lhs, Node* rhs) {
-    Node* n = new Node{lhs->data, nullptr};
-    Node* a = n;
-    Node* iter = lhs->next;
+    if (lhs==nullptr) return list::copy(rhs);
+    if (rhs==nullptr) return list::copy(lhs);
 
-    for (; iter != nullptr; iter = iter->next, n = n->next) {
-        n->next = new Node{iter->data, nullptr};
-    }
-    iter = rhs;
-    for (; iter != nullptr; iter = iter->next, n = n->next) {
-        n->next = new Node{iter->data, nullptr};
-    }
-    return a;
+    Node* l = list::copy(lhs);
+    Node* r = list::copy(rhs);
+    Node* n = l;
+
+    for (; l->next!=nullptr; l=l->next) {}
+    l->next = r;
+
+    return n;
 }
 
+
+int list::index(Node* head, Node* node) {
+    Node* b = head;
+    for (int i=0; b!= nullptr; ++i, b=b->next)
+        if (b==node) return i;
+    return -1;
+}
+
+
+Node* list::find_char(Node* head, char c) {
+    if (head==nullptr) return nullptr;
+    return (head->data==c) ? head : find_char(head->next, c);
+}
+
+
+Node* list::find_list(Node* haystack, Node* needle) {
+    if (needle==nullptr || haystack==nullptr) return nullptr;
+
+    for (Node* h = haystack; h != nullptr; h = h->next) {
+        Node* n = needle;
+        Node* s = h;
+        for (; n != nullptr; n = n->next, s = h->next)
+            if (s==nullptr || s->data != n->data) break;
+        if (s==nullptr) break;
+        if (n==nullptr) return h;
+    }
+    return nullptr;
+}
 
 

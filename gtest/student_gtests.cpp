@@ -136,4 +136,30 @@ TEST(ListTests, StrFinding) {
     EXPECT_EQ(c->data, '2');
     list::free(a);
     list::free(b);
-} 
+
+    Node* d = list::from_string("12345");
+    Node* e = list::from_string("5");
+    Node* f = list::from_string("45");
+    Node* g = list::find_list(d, e);
+    Node* h = list::find_list(d, f);
+    
+    EXPECT_EQ(h->next, g);
+    list::free(d);
+    list::free(e);
+    list::free(f);
+}
+
+
+TEST(ListTests, GetNth) {
+    Node* a = list::from_string("1234567");
+    EXPECT_EQ(list::nth(a, 6)->data, '7');
+    list::free(a);
+}
+
+
+TEST(ListTests, GetLast) {
+    Node* a = list::from_string("1234567");
+    EXPECT_EQ(list::last(a)->data, '7');
+    list::free(a);
+}
+

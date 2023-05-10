@@ -45,13 +45,14 @@ Node* find_char(Node* head, char c);
 
 // similar to strstr but for two linked lists
 Node* find_list(Node* haystack, Node* needle);
-/*
+
 // get the nth node of linked list
 Node* nth(Node* head, int n);
 
 // get the last node of linked list
 Node* last(Node* head);
-*/
+
 };  // namespace list
 
 #endif
+

@@ -25,8 +25,40 @@ protected:
     }
 };
 
+std::string to_string(const Picture& p) {
+    std::stringstream out;
+    p.print_all(out);
+    return out.str();
+}
+
 TEST_F(PictureTests, Constructor) {
     Picture p;
+    p.add(Rectangle{{0, 0}, "p_rect1", 3, 5});
+    p.add(Rectangle{{1, 1}, "p2_rect2", 10, 20});
+    p.add(Circle{{1, 1}, "p2_square1", 1});
+    std::string p_str = to_string(p);
+
+    Picture p2;
+    p2 = Picture(p);
+    EXPECT_EQ(to_string(p2), p_str);
+    p = Picture();
+    EXPECT_EQ(to_string(p), "");
+
+    Picture p3;
+    p3.add(Triangle{{0, 1}, "p3_triangle1", 2, 2});
+    p3.add(Triangle{{-1, 1}, "p3_triangle2", 1, 3});
+    p3.add(Square{{5, 2}, "p3_square2", 4});
+    std::string p3_str = to_string(p3);
+    p2 = Picture(p2);
+    p2 = p3;
+    Picture p4(p2);
+    p = p2;
+
+
+    EXPECT_EQ(to_string(p2), p3_str);
+    EXPECT_EQ(to_string(p4), p3_str);
+    EXPECT_EQ(to_string(p), to_string(p3));
+
 }
 
 TEST_F(PictureTests, TotalArea) {
@@ -92,11 +124,6 @@ TEST_F(PictureTests, DrawAll) {
     testcase(Circle{{0, 0}, "circle1", 1});
 }
 
-std::string to_string(const Picture& p) {
-    std::stringstream out;
-    p.print_all(out);
-    return out.str();
-}
 
 TEST_F(PictureTests, Swap) {
     Picture p1, p2;

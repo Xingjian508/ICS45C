@@ -8,10 +8,11 @@ Picture::Picture() {
 }
 
 Picture::Picture(const Picture& other) {
+    ListNode h = head;
     ListNode* prev = nullptr;
-    for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
-        head = new ListNode((n->shape)->clone(), prev, nullptr);
-        if (prev) prev->next = head;
+    for (ListNode* n = other.head; n != nullptr; prev = h, n = n->next) {
+        h = new ListNode((n->shape)->clone(), prev, nullptr);
+        if (prev) prev->next = h;
     }
     tail = prev;
 }
@@ -34,10 +35,11 @@ void Picture::swap(Picture& other) {
 
 Picture& Picture::operator=(const Picture& other) {
     Picture::free_nodes();
+    ListNode* h = head;
     ListNode* prev = nullptr;
-    for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
-        head = new ListNode((n->shape)->clone(), prev, nullptr);
-        if (prev) prev->next = head;
+    for (ListNode* n = other.head; n != nullptr; prev = h, n = n->next) {
+        h = new ListNode((n->shape)->clone(), prev, nullptr);
+        if (prev) prev->next = h;
     }
     tail = prev;
     return *this;

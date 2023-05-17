@@ -8,6 +8,7 @@ Picture::Picture() {
 }
 
 Picture::Picture(const Picture& other) {
+    head = nullptr;
     ListNode* prev = nullptr;
     for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
         head = new ListNode((n->shape)->clone(), prev, nullptr);

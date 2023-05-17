@@ -8,11 +8,10 @@ Picture::Picture() {
 }
 
 Picture::Picture(const Picture& other) {
-    head = nullptr;
     ListNode* prev = nullptr;
     for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
         head = new ListNode((n->shape)->clone(), prev, nullptr);
-        prev->next = head;
+        if (prev) prev->next = head;
     }
     tail = prev;
 }
@@ -38,7 +37,7 @@ Picture& Picture::operator=(const Picture& other) {
     ListNode* prev = nullptr;
     for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
         head = new ListNode((n->shape)->clone(), prev, nullptr);
-        prev->next = head;
+        if (prev) prev->next = head;
     }
     tail = prev;
     return *this;

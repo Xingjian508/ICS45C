@@ -7,6 +7,47 @@ Picture::Picture() {
     tail = nullptr;
 }
 
+Picture::Picture(const Picture& other) {
+    ListNode* prev = nullptr;
+    for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
+        head = new ListNode((n->shape)->clone(), prev, nullptr);
+        prev->next = head;
+    }
+    tail = prev;
+}
+
+Picture::Picture(Picture&& other) {
+    head = other.head;
+    tail = other.tail;
+    other.head = nullptr;
+    other.tail = nullptr;
+}
+
+void Picture::swap(Picture& other) {
+    ListNode* t1 = head;
+    ListNode* t2 = tail;
+    head = other.head;
+    tail = other.tail;
+    other.head = t1;
+    other.tail = t2;
+}
+
+Picture& Picture::operator=(const Picture& other) {
+    Picture::free_nodes();
+    ListNode* prev = nullptr;
+    for (ListNode* n = other.head; n != nullptr; prev = n, n = n->next) {
+        head = new ListNode((n->shape)->clone(), prev, nullptr);
+        prev->next = head;
+    }
+    tail = prev;
+    return *this;
+}
+
+Picture& Picture::operator=(Picture&& other) {
+    Picture::swap(other);
+    return *this;
+}
+
 void Picture::add(const Shape& shape) {
     Shape* dup_shape = shape.clone();
     if (!head) {
@@ -20,8 +61,10 @@ void Picture::add(const Shape& shape) {
 }
 
 void Picture::print_all(std::ostream& out) const {
-    for (ListNode* n=head; n!=nullptr; n=n->next)
+    for (ListNode* n=head; n!=nullptr; n=n->next) {
         (n->shape)->print(out);
+        (n->shape)->draw(out);
+    }
 }
 
 void Picture::draw_all(std::ostream& out) const {
@@ -36,11 +79,17 @@ double Picture::total_area() const {
     return k;
 }
 
-Picture::~Picture() {
+void Picture::free_nodes() {
     ListNode* temp;
     for (ListNode* n = head; n != nullptr; n = temp) {
         temp = n->next;
         delete (n->shape);
         delete n;
     }
+    head = nullptr;
+    tail = nullptr;
+} 
+
+Picture::~Picture() {
+    Picture::free_nodes();
 }

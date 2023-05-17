@@ -40,6 +40,9 @@ public:
     // Returns the sum of areas of all the Shapes in this Picture.
     double total_area() const;
 
+    // Helper methods to free up all nodes.
+    void free_nodes();
+
     // Frees up all storage owned by this Picture when it dies.
     ~Picture();
 

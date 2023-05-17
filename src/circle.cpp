@@ -22,5 +22,6 @@ void Circle::draw(std::ostream& out) const {
 }
 
 double Circle::area() const {
-    return (radius*radius*3.14);
+    const double pi = std::numbers::pi_v<double>;
+    return (radius*radius*pi);
 }

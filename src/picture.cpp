@@ -37,6 +37,7 @@ void Picture::swap(Picture& other) {
 }
 
 Picture& Picture::operator=(const Picture& other) {
+    if (&other==this) return *this;
     Picture::free_nodes();
     ListNode* h = nullptr;
     ListNode* prev = nullptr;

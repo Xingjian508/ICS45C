@@ -38,7 +38,8 @@ public:
     template <typename Fn>
     void fill_with_fn(Fn fn) {
         for (int i=0; i<rows; ++i)
-            data[i].fill_with_fn(fn);
+            for (int j=0; j<cols; ++j)
+                data[i][j] = fn(i, j);
     }
 
 private:
@@ -56,10 +57,10 @@ std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix) {
 
 template <typename T>
 std::istream& operator>>(std::istream& in, Matrix<T>& matrix) {
-    int i=0;
-    while (in >> matrix[i] && i < matrix.num_rows())
-        ++i;
+    for (int i=0; i<matrix.num_rows(); ++i)
+        in >> matrix[i];
     return in;
 }
 
 #endif
+

@@ -19,3 +19,21 @@ TEST(MatrixTests, RowsAndCols) {
     EXPECT_EQ(mat3.num_rows(), 0);
     EXPECT_EQ(mat3.num_cols(), 0);
 }
+
+TEST(MatrixTests, FillingwithLambda) {
+    Matrix<int> mat{3, 4};
+    EXPECT_EQ(mat.num_rows(), mat.num_cols()-1);
+
+    mat.fill_with_fn([](int i, int j){return i+j;});
+
+    EXPECT_EQ(mat[2][3], 5);
+}
+
+TEST(MatrixTests, Fill) {
+    Matrix<string> mat{5, 5};
+    mat.fill("JOHN CENA");
+    EXPECT_EQ(mat[3][4], mat[3][2]);
+    EXPECT_EQ(mat[2][3], "JOHN CENA");
+    cout << mat << endl;
+}
+

@@ -48,7 +48,7 @@ private:
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix) {
-    for (int i=0; i<matrix.num_rows; ++i)
+    for (int i=0; i<matrix.num_rows(); ++i)
         out << matrix[i] << std::endl;
     return out;
 }

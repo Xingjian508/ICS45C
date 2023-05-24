@@ -1,10 +1,14 @@
 #include <gtest/gtest.h>
 
 #include <string>
-
 #include "array.hpp"
 
 using namespace std;
+
+TEST(ArrayTests, BasicConstruction) {
+    Array<int>{};
+    Array<double> t{3};
+}
 
 TEST(ArrayTests, Length) {
     Array<int> arr{3};
@@ -15,3 +19,4 @@ TEST(ArrayTests, Length) {
 
     EXPECT_EQ(Array<double>{}.length(), 0);
 }
+

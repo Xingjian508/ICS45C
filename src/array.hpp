@@ -73,6 +73,10 @@ public:
             throw std::string("Exception operator[](" + std::to_string(index) + ") Out Of Range");
     }
 
+    void fill(T val) {
+        for (int i=0; i<len; ++i)
+            buf[i] = val;
+    }
 
     template <typename Fn>
     void fill_with_fn(Fn fn) {

@@ -73,6 +73,7 @@ TEST(IntArrayTests, CopyConstructor) {
 
 TEST(IntArrayTests, MoveConstructor) {
     AllocationTracker tracker;
+
     Array arr{10};
     arr.fill(20);
 

@@ -124,3 +124,4 @@ inline std::istream& operator>>(std::istream& in, Array& array) {
 }
 
 #endif
+

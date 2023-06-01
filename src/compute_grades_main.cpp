@@ -9,7 +9,7 @@ int main() {
     gradebook >> b;
 
     b.validate();
-    b.compute_grades();
+    b.compute_grade();
     b.sort();
 
     ofstream course_grades{"course_grades.txt"};

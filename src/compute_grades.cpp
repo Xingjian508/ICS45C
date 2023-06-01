@@ -79,7 +79,7 @@ void Student::compute_hw_avg() {
 void Student::compute_course_score() {
 }
 
-void Gradebook::compute_grades() {
+void Gradebook::compute_grade() {
 }
 
 void Gradebook::sort() {

@@ -37,7 +37,7 @@ private:
 
 class Gradebook {
 public:
-    void compute_grades();
+    void compute_grade();
     void sort();
     void validate() const;
 

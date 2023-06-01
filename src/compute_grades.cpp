@@ -151,6 +151,7 @@ std::ostream& operator<<(std::ostream& out, const Student& s) {
     temp << left << setw(8) << "Final: " << int(s.final_score) << endl;
     temp << left << setw(8) << "Total: " << int(s.course_score) << endl;
     temp << left << setw(8) << "Grade: " << s.course_grade << endl;
+    temp << endl;
     out << temp.str();
     return out;
 }

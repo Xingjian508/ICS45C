@@ -19,7 +19,7 @@ void Student::validate() const {
 }
 
 bool Student::operator==(const Student& other) const {
-    return this == &other;
+    return (first_name == other.first_name && last_name == other.last_name);
 }
 
 vector<string> get_all_lines(istream& in) {
@@ -45,6 +45,8 @@ istream& operator>>(istream& in, Student& s) {
         if (keyword == "Name") {
             str >> s.first_name;
             str >> s.last_name;
+            string l;
+            while (str >> l) { s.last_name += (" " + l); }
         }
         else if (keyword == "Quiz") {
             while (str >> n) { s.quiz.push_back(n); }

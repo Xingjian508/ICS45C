@@ -13,7 +13,7 @@ Quiz 100 100 10 100 100 100 100 100 100
 HW   100 100 100 100 100 100 100 100 100
 Final 100
 
-Name Bart Simpson
+Name Bart Simpson Other
 Quiz  69  69  69  2  69  69  69  69  69
 HW    69 69 69 69 69 69 69 69
 Final 69

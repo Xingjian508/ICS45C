@@ -53,7 +53,6 @@ istream& operator>>(istream& in, Student& s) {
             str >> s.final_score;
         }
     }
-
     return in;
 }
 
@@ -69,26 +68,66 @@ istream& operator>>(istream& in, Gradebook& b) {
 
 void Student::compute_quiz_avg() {
     double avg = 0.0;
-    for_each(quiz.begin(), quiz.end(), [&](int x) { avg += x; });
-
+    int total_num = 0;
+    int min_num = 101;
+    for_each(quiz.begin(), quiz.end(), [&](int x) { avg += x; total_num++; min_num = min(x, min_num); });
+    if (total_num >= 2)
+        quiz_avg = (avg-min_num)/(total_num-1);
+    else if (total_num == 1)
+        quiz_avg = avg;
+    else if (total_num == 0)
+        quiz_avg = 0.0;
 }
 
 void Student::compute_hw_avg() {
+    double avg = 0.0;
+    int total_num = 0;
+    int min_num = 101;
+    for_each(hw.begin(), hw.end(), [&](int x) { avg += x; total_num++; min_num = min(x, min_num); });
+    hw_avg = avg/total_num;
 }
 
 void Student::compute_grade() {
+    Student::compute_quiz_avg();
+    Student::compute_hw_avg();
+    Student::compute_course_score();
 }
 
 void Student::compute_course_score() {
+    double everything = 0.0;
+    everything += ((hw_avg*0.3) + (quiz_avg*0.4) + (final_score*0.3));
+    course_score = int(everything);
+    int g = course_score;
+    if (97 <= g && g <= 100) course_grade = "A+";
+    if (93 <= g && g <= 96) course_grade = "A";
+    if (90 <= g && g <= 92) course_grade = "A-";
+    if (87 <= g && g <= 89) course_grade = "B+";
+    if (83 <= g && g <= 86) course_grade = "B";
+    if (80 <= g && g <= 82) course_grade = "B-";
+    if (77 <= g && g <= 79) course_grade = "C+";
+    if (73 <= g && g <= 76) course_grade = "C";
+    if (70 <= g && g <= 72) course_grade = "C-";
+    if (67 <= g && g <= 69) course_grade = "D+";
+    if (63 <= g && g <= 66) course_grade = "D";
+    if (60 <= g && g <= 62) course_grade = "D-";
+    if (0 <= g && g <= 59) course_grade = "F";
+
 }
 
 void Gradebook::compute_grades() {
+    for_each(students.begin(), students.end(), [](Student& s) { s.compute_grade(); });
+}
+
+strong_ordering Student::operator<=>(const Student& other) const {
+    return (last_name+first_name) <=> (other.last_name+other.first_name);
 }
 
 void Gradebook::sort() {
+    std::sort(students.begin(), students.end());
 }
 
 void Gradebook::validate() const {
+    for_each(students.begin(), students.end(), [&](Student s) { s.validate(); });
 }
 
 std::ostream& operator<<(std::ostream& out, const Gradebook& b) {
@@ -97,19 +136,14 @@ std::ostream& operator<<(std::ostream& out, const Gradebook& b) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Student& s) {
-    out << s.first_name << endl;
-    out << s.last_name << endl;
-    for (auto element : s.quiz) {
-        out << element << " ";
-    }
-    out << endl;
-    for (auto element : s.hw) {
-        out << element << " ";
-    }
-    out << endl;
-    out << s.final_score << endl;
-
+    out << "Name: " << s.first_name << " " << s.last_name << endl;
+    out << "HW Ave: " << s.hw_avg << endl;
+    out << "QZ Ave: " << s.quiz_avg << endl;
+    out << "Final: " << s.final_score << endl;
+    out << "Total: " << s.course_score << endl;
+    out << "Grade: " << s.course_grade << endl;
     out << endl;
     return out;
 }
+
 

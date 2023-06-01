@@ -18,8 +18,8 @@ public:
     friend std::istream& operator>>(std::istream& in, Student& s);
     friend std::ostream& operator<<(std::ostream& out, const Student& s);
 
-    std::string first_name = "Missing";
 private:
+    std::string first_name = "Missing";
     std::string last_name = "Name";
     std::vector<int> quiz;
     std::vector<int> hw;

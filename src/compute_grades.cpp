@@ -17,7 +17,9 @@ void Student::validate() const {
     if (final_score < 0 || final_score > 100) throw domain_error("Error: invalid percentage " + to_string(final_score));
 }
 
-
+bool Student::operator==(const Student& other) const {
+    return this == &other;
+}
 
 vector<string> get_all_lines(istream& in) {
     vector<string> v;

@@ -13,8 +13,8 @@ using namespace std;
 
 
 void Student::validate() const {
-    for_each(quiz.begin(), quiz.end(), [&](int x) { if (0>x || x>100) throw domain_error("Error: invalid percentage " + x); });
-    for_each(hw.begin(), hw.end(), [&](int x) { if (0>x || x>100) throw domain_error("Error: invalid percentage " + x); });
+    for_each(quiz.begin(), quiz.end(), [](int x) { if (0>x || x>100) throw domain_error("Error: invalid percentage " + x); });
+    for_each(hw.begin(), hw.end(), [](int x) { if (0>x || x>100) throw domain_error("Error: invalid percentage " + x); });
     if (final_score < 0 || final_score > 100) throw domain_error("Error: invalid percentage " + to_string(final_score));
 }
 
@@ -70,6 +70,7 @@ istream& operator>>(istream& in, Gradebook& b) {
 }
 
 void Student::compute_quiz_avg() {
+    quiz_avg = 0.0;
     double avg = 0.0;
     int total_num = 0;
     int min_num = 101;
@@ -87,7 +88,8 @@ void Student::compute_hw_avg() {
     int total_num = 0;
     int min_num = 101;
     for_each(hw.begin(), hw.end(), [&](int x) { avg += x; total_num++; min_num = min(x, min_num); });
-    hw_avg = avg/total_num;
+    if (total_num != 0) hw_avg = avg/total_num;
+    else hw_avg = 0.0;
 }
 
 void Student::compute_grade() {
@@ -144,12 +146,11 @@ std::ostream& operator<<(std::ostream& out, const Student& s) {
     temp << std::setprecision(2) << std::fixed << std::left;
 
     temp << left << setw(8) << "Name: " << s.first_name << " " << s.last_name << endl;
-    temp << left << setw(8) << "HW Ave: " << s.hw_avg << endl;
-    temp << left << setw(8) << "QZ Ave: " << left <<s.quiz_avg << endl;
-    temp << left << setw(8) << "Final: " << s.final_score << endl;
-    temp << left << setw(8) << "Total: " << s.course_score << endl;
+    temp << left << setw(8) << "HW Ave: " << int(s.hw_avg) << endl;
+    temp << left << setw(8) << "QZ Ave: " << int(s.quiz_avg) << endl;
+    temp << left << setw(8) << "Final: " << int(s.final_score) << endl;
+    temp << left << setw(8) << "Total: " << int(s.course_score) << endl;
     temp << left << setw(8) << "Grade: " << s.course_grade << endl;
-    temp << endl;
     out << temp.str();
     return out;
 }

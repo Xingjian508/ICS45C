@@ -14,11 +14,11 @@ using namespace std;
 
 void Student::validate() const {
     for (int i : quiz)
-        if (0 > i || 100 < i) throw std::domain_error(string("Error: invalid percentage " + i));
+        if (0 > i || 100 < i) throw std::domain_error(string("Error: invalid percentage " + to_string(i)));
     for (int i : hw)
-        if (0 > i || 100 < i) throw std::domain_error(string("Error: invalid percentage " + i));
+        if (0 > i || 100 < i) throw std::domain_error(string("Error: invalid percentage " + to_string(i)));
 
-    if (final_score < 0 || final_score > 100) throw std::domain_error(string("Error: invalid percentage " + i));
+    if (final_score < 0 || final_score > 100) throw std::domain_error(string("Error: invalid percentage " + to_string(final_score)));
 }
 
 bool Student::operator==(const Student& other) const {

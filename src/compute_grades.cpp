@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <iterator>
+#include <iomanip>
 
 
 using namespace std;
@@ -138,13 +139,18 @@ std::ostream& operator<<(std::ostream& out, const Gradebook& b) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Student& s) {
-    out << "Name: " << s.first_name << " " << s.last_name << endl;
-    out << "HW Ave: " << s.hw_avg << endl;
-    out << "QZ Ave: " << s.quiz_avg << endl;
-    out << "Final: " << s.final_score << endl;
-    out << "Total: " << s.course_score << endl;
-    out << "Grade: " << s.course_grade << endl;
-    out << endl;
+    std::stringstream temp;
+    // We don't want to set formatting flags globally.
+    temp << std::setprecision(2) << std::fixed << std::left;
+
+    temp << left << setw(8) << "Name: " << s.first_name << " " << s.last_name << endl;
+    temp << left << setw(8) << "HW Ave: " << s.hw_avg << endl;
+    temp << left << setw(8) << "QZ Ave: " << left <<s.quiz_avg << endl;
+    temp << left << setw(8) << "Final: " << s.final_score << endl;
+    temp << left << setw(8) << "Total: " << s.course_score << endl;
+    temp << left << setw(8) << "Grade: " << s.course_grade << endl;
+    temp << endl;
+    out << temp.str();
     return out;
 }
 

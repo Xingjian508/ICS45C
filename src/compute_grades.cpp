@@ -13,15 +13,7 @@ using namespace std;
 
 
 void Student::validate() const {
-    for (int x : quiz)
-        if (0>x || x>100)
-            throw domain_error("Error: invalid percentage " + x);
-    for (int x : hw)
-        if (0>x || x>100)
-            throw domain_error("Error: invalid percentage " + x);
-    // for_each(quiz.begin(), quiz.end(), [](int x) { if (0>x || x>100) throw domain_error("Error: invalid percentage " + x); });
-    // for_each(hw.begin(), hw.end(), [](int x) { if (0>x || x>100) throw domain_error("Error: invalid percentage " + x); });
-    if (final_score < 0 || final_score > 100) throw domain_error("Error: invalid percentage " + to_string(final_score));
+
 }
 
 bool Student::operator==(const Student& other) const {

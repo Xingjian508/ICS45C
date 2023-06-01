@@ -134,7 +134,7 @@ void Gradebook::sort() {
 }
 
 void Gradebook::validate() const {
-    for_each(students.begin(), students.end(), [&](Student s) { s.validate(); });
+    for_each(students.begin(), students.end(), [](Student& s) { s.validate(); });
 }
 
 std::ostream& operator<<(std::ostream& out, const Gradebook& b) {

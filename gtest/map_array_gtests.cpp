@@ -7,6 +7,11 @@
 using namespace std;
 static_assert(std::ranges::random_access_range<MapArray<int, double>>);
 
+TEST(MapArrayTests, Initializing) {
+    MapArray<string, string> map;
+    EXPECT_NE(map["s"], "s");
+}
+
 TEST(MapArrayTests, Subscript) {
     MapArray<string, int> map;
 
@@ -24,6 +29,7 @@ TEST(MapArrayTests, Subscript) {
 }
 
 TEST(MapArrayTests, SubscriptIterators) {
+
     MapArray<string, int> map;
 
     EXPECT_EQ(map.begin(), map.end());
@@ -41,6 +47,7 @@ TEST(MapArrayTests, SubscriptIterators) {
     EXPECT_EQ(map.end() - map.begin(),  4);
     EXPECT_EQ(map.begin()[2].second, 10);
     EXPECT_EQ((map.begin() + 1)->second, 5);
+
 }
 
 TEST(MapArrayTests, Iteration) {
@@ -58,3 +65,4 @@ TEST(MapArrayTests, Iteration) {
         EXPECT_EQ(value, i++);
     }
 }
+

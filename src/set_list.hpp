@@ -82,7 +82,7 @@ public:
 
     ListIterator insert(T value) {
         if (!contains(value)) {
-            head = std::move(std::make_shared<ListNode>(ListNode{value, head}));
+            head = std::move(std::make_shared<ListNode>(ListNode{std::move(value), head}));
         }
         return ListIterator(head);
     }

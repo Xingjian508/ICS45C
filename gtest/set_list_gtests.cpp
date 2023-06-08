@@ -6,16 +6,24 @@ using namespace std;
 
 static_assert(ranges::forward_range<SetList<int>>);
 
+TEST(SetListTests, IteratorTests) {
+    SetList<int> set;
+    SetList<int>::ListNode head{3, nullptr};
+    auto ptr = std::make_shared<SetList<int>::ListNode>(head);
+    SetList<int>::ListIterator l(ptr);
+}
+
 TEST(SetListTests, InsertContains) {
     SetList<int> set;
 
-    EXPECT_FALSE(set.contains(5));
+    EXPECT_FALSE(set.contains(5)); 
     set.insert(5);
     EXPECT_TRUE(set.contains(5));
     EXPECT_FALSE(set.contains(7));
     set.insert(7);
     EXPECT_TRUE(set.contains(5));
     EXPECT_TRUE(set.contains(7));
+
 }
 
 TEST(SetListTests, InsertIterator) {
@@ -52,3 +60,4 @@ TEST(SetListTests, RangeConstructor) {
         EXPECT_EQ(x, i--);
     }
 }
+
